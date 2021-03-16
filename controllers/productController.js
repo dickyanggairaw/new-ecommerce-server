@@ -1,6 +1,27 @@
 const {Product} = require('../models')
 
 class ProductController{
+
+    static fetchAll(req, res, next){
+        Product.findAll()
+            .then(data=>{
+                let products = data.map(el =>{
+                    return {
+                        id: el.id,
+                        name: el.name,
+                        image_url: el.image_url,
+                        price: el.price,
+                        stock: el.stock
+                    }
+                })
+
+                res.status(200).json(products)
+            })
+            .catch(err=>{
+                next(err)
+            })
+    }
+
     static create(req, res, next){
         const body = {
             name: req.body.name,
@@ -23,6 +44,7 @@ class ProductController{
                 next(err)
             })
     }
+
     static update(req, res, next){
         const body = {
             name: req.body.name,
@@ -46,7 +68,7 @@ class ProductController{
                 })
             })
             .catch(err=>{
-                // console.log(err)
+                console.log(err.errors[0].message)
                 next(err)
             })
     }

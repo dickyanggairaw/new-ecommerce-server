@@ -11,24 +11,25 @@ function authtentic(req, res, next){
             }
         })
             .then((data)=>{
-                if(data.role == 'admin'){
-                    next()
-                }else{
-                    next({
-                        name: "userCustomer",
-                        message: "User must be Admin"
-                    }) 
-                }
-                
+                req.currentUser = data
+                next()                
             })
             .catch(err => {
-                next({
-                    name: "userCustomer",
-                    message: "User must be Admin"
-                })
+                next(err)
             })
     } catch (error) {
         next(error)
+    }
+}
+
+function authtenticAdmin(req, res, next){
+    if(req.currentUser.role == 'admin'){
+        next()
+    }else{
+        next({
+            name: "userCustomer",
+            message: "User must be Admin"
+        }) 
     }
 }
 
@@ -38,5 +39,6 @@ function authorize(req, res, next){
 
 module.exports = {
     authtentic,
+    authtenticAdmin,
     authorize
 }

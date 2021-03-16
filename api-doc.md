@@ -25,6 +25,35 @@
   }
 ```
 
+## GET Product /products
+
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+
+### Response (200 - OK)
+```json
+[
+  {
+    "id": "<id>",
+    "name": "<name>",
+    "image_url": "<image_url>",
+    "price": "<price>",
+    "stock": "<stock>"
+  }
+]
+```
+### Response (400 - Bad Request)
+```json
+  {
+    "errors": "<errors>"
+  }
+```
+
+
 ## POST Create Product /products
 
 ### Req.headers:
@@ -130,4 +159,9 @@
   {
     "errors": "<errors>"
   }
+```
+
+## Internal Server Error (500)
+```json
+  {"message": "<internal server error>"}
 ```
