@@ -10,6 +10,7 @@ router.post('/login', UserController.login)
 router.use(authtentic)
 router.get('/products', ProductController.fetchAll)
 router.post('/products', authtenticAdmin, ProductController.create)
+router.get('/products/:id', authtenticAdmin, ProductController.findProduct)
 router.put('/products/:id', authtenticAdmin, ProductController.update)
 router.delete('/products/:id', authtenticAdmin, ProductController.delete)
 

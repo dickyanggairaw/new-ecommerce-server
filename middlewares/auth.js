@@ -3,8 +3,8 @@ const {verifyToken} = require('../helpers/jwt')
 
 function authtentic(req, res, next){
     try {
+        console.log(req.headers.access_token)
         const user = verifyToken(req.headers.access_token)
-
         User.findOne({
             where: {
                 email: user.email
@@ -23,6 +23,7 @@ function authtentic(req, res, next){
 }
 
 function authtenticAdmin(req, res, next){
+    console.log(req.currentUser.role)
     if(req.currentUser.role == 'admin'){
         next()
     }else{

@@ -45,6 +45,26 @@ class ProductController{
             })
     }
 
+    static findProduct(req, res, next){
+        Product.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+            .then(product=>{
+                res.status(200).json({
+                    id: product.id,
+                    name: product.name,
+                    image_url: product.image_url,
+                    price: product.price,
+                    stock: product.stock
+                })
+            })
+            .catch(err=>{
+                next(err)
+            })
+    }
+
     static update(req, res, next){
         const body = {
             name: req.body.name,

@@ -11,7 +11,7 @@ class UserController{
                         email
                     }
                 })
-        
+                // console.log(user)
                 if(!user){
                     throw {msg: "Invalid Email or Password"}
                 }
@@ -19,6 +19,7 @@ class UserController{
                     throw {msg: "Invalid Email or Password"}
                 }
                 const access_token = createToken(user)
+                console.log(access_token)
                 res.status(200).json({access_token})
         } catch (error) {
             next(error)
