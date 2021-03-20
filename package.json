@@ -4,7 +4,7 @@
   "description": "API server untuk e-commerce website",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node bin/http.js",
     "db:create:test": "cross-env NODE_ENV=test npx sequelize db:create",
     "db:migrate:test": "cross-env NODE_ENV=test npx sequelize db:migrate",
     "db:migrate:undo:test": "cross-env NODE_ENV=test npx sequelize db:migrate:undo",
