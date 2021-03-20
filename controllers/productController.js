@@ -3,7 +3,11 @@ const {Product} = require('../models')
 class ProductController{
 
     static fetchAll(req, res, next){
-        Product.findAll()
+        Product.findAll({
+          order: [
+            ['id', 'ASC']
+          ]
+        })
             .then(data=>{
                 let products = data.map(el =>{
                     return {

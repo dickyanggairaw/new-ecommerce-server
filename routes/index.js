@@ -5,6 +5,10 @@ const UserController = require('../controllers/UserController')
 const ProductController = require('../controllers/productController')
 const {authtentic,authtenticAdmin, authorize} = require('../middlewares/auth')
 
+router.get('/', (req, res) => {
+  res.send("Ecommerce CMS")
+})
+
 router.post('/login', UserController.login)
 
 router.use(authtentic)
