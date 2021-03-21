@@ -23,7 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    image_url: DataTypes.STRING,
+    image_url: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     price: {
       type: DataTypes.INTEGER,
       validate: {
