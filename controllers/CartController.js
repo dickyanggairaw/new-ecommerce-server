@@ -9,6 +9,7 @@ class CartController {
       }
       Cart.findOrCreate({
         where: {
+          UserId: req.currentUser.id,
           ProductId: req.params.ProductId
         },
         defaults: data,
@@ -71,7 +72,7 @@ class CartController {
     try {
       await Cart.destroy({
         where: {
-          ProductId: req.params.ProductId
+          id: req.params.id
         }
       })
       res.status(200).json({message: "Successfully delete Product"})
@@ -86,8 +87,7 @@ class CartController {
       }
       const cart = await Cart.update(data, {
         where: {
-          UserId: req.currentUser.id,
-          ProductId: req.params.ProductId
+          id: req.params.id
         },
         returning: true
       })
@@ -100,6 +100,36 @@ class CartController {
     } catch (error) {
       next(error)
     }
+  }
+  static checkout (req, res, next) {
+    Cart.destroy({
+      where: {
+        id: req.body.id
+      }
+    })
+      .then(() => {
+        let data = {
+          stock: req.body.stockProduct - req.body.stock
+        }
+        return Product.update(data, {
+          where: {
+            id: req.body.ProductId
+          },
+          returning: true
+        })
+      })
+      .then(data => {
+        res.status(200).json({
+          id: data[1][0].id,
+          name: data[1][0].name,
+          image_url: data[1][0].image_url,
+          price: data[1][0].price,
+          stock: data[1][0].stock
+        })
+      })
+      .catch(err => {
+        next(err)
+      })
   }
 }
 

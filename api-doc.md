@@ -266,7 +266,7 @@
   {"message": "<internal server error>"}
 ```
 
-## DELETE Delete Cart /carts/:ProductId
+## DELETE Delete Cart /carts/:id
 
 ### Req.headers:
 ```json
@@ -277,7 +277,7 @@
 ### Req.Params:
 ```json
   {
-    "id": "<req.params.ProductId>"
+    "id": "<req.params.id>"
   }
 ```
 
@@ -298,7 +298,7 @@
   {"message": "<internal server error>"}
 ```
 
-## PUT update Stok /carts/:ProductId
+## PUT update Stok /carts/:id
 ### Req.headers:
 ```json
   {
@@ -309,7 +309,14 @@
 ### Req.Params:
 ```json
   {
-    "id": "<req.params.ProductId>"
+    "id": "<req.params.id>"
+  }
+```
+
+### Req.Body:
+```json
+  {
+    "stock": "<req.body.stock>"
   }
 ```
 
@@ -342,3 +349,5 @@
 ```json
   {"message": "<internal server error>"}
 ```
+
+## 
