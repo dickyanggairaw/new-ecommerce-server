@@ -27,7 +27,6 @@ router.post('/wishlists/:ProductId', WishlistController.create)
 router.get('/wishlists', WishlistController.fetchAll)
 router.delete('/wishlists/:id', WishlistController.deleteWishlist)
 
-router.post('/histories', HistoryController.create)
 router.get('/histories', HistoryController.fetchHistory)
 
 router.get('/products', ProductController.fetchAll)

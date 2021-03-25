@@ -1,4 +1,4 @@
-const { Cart, User, Product} = require('../models')
+const { Cart, User, Product, History} = require('../models')
 
 class CartController {
   static create ( req, res, next ) {
@@ -102,30 +102,34 @@ class CartController {
     }
   }
   static checkout (req, res, next) {
-    Cart.destroy({
-      where: {
-        id: req.body.id
+      const dataUpdate = {
+        stock: req.body.stockProduct - req.body.stock
       }
-    })
-      .then(() => {
-        let data = {
-          stock: req.body.stockProduct - req.body.stock
-        }
-        return Product.update(data, {
-          where: {
-            id: req.body.ProductId
-          },
-          returning: true
-        })
+      Product.update(dataUpdate, {
+        where: {
+          id: req.body.ProductId
+        },
+        returning: true
       })
       .then(data => {
-        res.status(200).json({
-          id: data[1][0].id,
-          name: data[1][0].name,
-          image_url: data[1][0].image_url,
-          price: data[1][0].price,
-          stock: data[1][0].stock
+        let dataProduct = {
+          UserId: req.currentUser.id,
+          name: req.body.name,
+          image_url: req.body.image_url,
+          price: req.body.price,
+          stock: req.body.stock
+        }
+        return History.create(dataProduct)
+      })
+      .then(data => {
+        return Cart.destroy({
+          where: {
+            id: req.body.id
+          }
         })
+      })
+      .then(() => {
+        res.status(200).json({message: "Succesfully checkout Product"})
       })
       .catch(err => {
         next(err)

@@ -1,37 +1,33 @@
 const { History } = require('../models')
 
 class HistoryController {
-  static async create( req, res, next ) {
-    try {
-      let data = {
-        UserId: req.currentUser.id,
-        name: req.body.name,
-        image_url: req.body.image_url,
-        price: req.body.price,
-        stock: req.body.stock
-      }
-      const history = await History.create(data)
-
-      res.status(201).json({
-        id: history.id,
-        UserId: history.UserId,
-        name: history.name,
-        image_url: history.image_url,
-        price: history.price,
-        stock: history.stock
-      })
-    } catch (error) {
-      next(error)
-    }
-  }
   static async fetchHistory ( req, res, next ) {
     try {
       const histories = await History.findAll({
         where: {
           UserId: req.currentUser.id
+        },
+        order: [['id', 'DESC']]
+      })
+      const dataHistories = histories.map(el => {
+        const pubDate = new Date(el.createdAt);
+        const month = pubDate.getMonth() + 1;
+        const date = pubDate.getDate();
+        const fullDate = `${pubDate.getFullYear()}-${
+        month <= 9 ? "0" + month : month
+        }-${date <= 9 ? "0" + date : date}`;
+
+        return {
+          id: el.id,
+          name: el.name,
+          UserId: el.UserId,
+          image_url: el.image_url,
+          price: el.price,
+          stock: el.stock,
+          createdAt: fullDate
         }
       })
-      res.status(200).json(histories)
+      res.status(200).json(dataHistories)
     } catch (error) {
       next(error)
     }
