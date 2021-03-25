@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
+router.get('/products', ProductController.fetchAll)
 
 router.use(authtentic)
 router.post('/carts/:ProductId', CartController.create)
@@ -29,7 +30,6 @@ router.delete('/wishlists/:id', WishlistController.deleteWishlist)
 
 router.get('/histories', HistoryController.fetchHistory)
 
-router.get('/products', ProductController.fetchAll)
 router.post('/products', authtenticAdmin, ProductController.create)
 router.get('/products/:id', authtenticAdmin, ProductController.findProduct)
 router.put('/products/:id', authtenticAdmin, ProductController.update)

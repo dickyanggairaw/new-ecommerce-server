@@ -16,8 +16,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Cart.init({
-    UserId: DataTypes.INTEGER,
-    ProductId: DataTypes.INTEGER,
+    UserId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "You must be logged in"
+        }
+      }
+    },
+    ProductId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "You must be logged in"
+        }
+      }
+    },
     stock: DataTypes.INTEGER
   }, {
     sequelize,
