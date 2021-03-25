@@ -98,7 +98,7 @@
   }
 ```
 
-### Response (200 - OK)
+### Response (201 - OK)
 ```json
   {
     "id": "<id>",
@@ -458,6 +458,76 @@
 ### Response (200 - OK)
 ```json
   {"message": "Successfully delete Wishlist"}
+```
+
+### Response (400 - Bad Request)
+```json
+  {
+    "errors": "<errors>"
+  }
+```
+
+## GET History /histories
+
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+
+### Response (200 - OK)
+```json
+[
+  {
+    "id": "<id>",
+    "UserId": "<UserId>",
+    "name": "<name>",
+    "image_url": "<image_url>",
+    "price": "<price>",
+    "stock": "<stock>",
+    "createdAt": "<createdAt>",
+    "updatedAt": "<updatedAt>"
+  }
+]
+```
+### Response (400 - Bad Request)
+```json
+  {
+    "errors": "<errors>"
+  }
+```
+
+## POST Create History /histories
+
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+
+### Req.body:
+```json
+  {
+    "UserId": "<UserId>",
+    "name": "<name>",
+    "image_url": "<image_url>",
+    "price": "<price>",
+    "stock": "<stock>"
+  }
+```
+
+### Response (201 - OK)
+```json
+  {
+    "id": "<id>",
+    "UserId": "<UserId>",
+    "name": "<name>",
+    "image_url": "<image_url>",
+    "price": "<price>",
+    "stock": "<stock>"
+  }
 ```
 
 ### Response (400 - Bad Request)

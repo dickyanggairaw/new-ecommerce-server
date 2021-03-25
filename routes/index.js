@@ -6,6 +6,7 @@ const UserController = require('../controllers/UserController')
 const ProductController = require('../controllers/productController')
 const CartController = require('../controllers/CartController')
 const WishlistController = require('../controllers/WishlistController')
+const HistoryController = require('../controllers/HistoryController')
 const {authtentic,authtenticAdmin, authorize} = require('../middlewares/auth')
 
 router.get('/', (req, res) => {
@@ -25,6 +26,9 @@ router.put('/checkout', CartController.checkout)
 router.post('/wishlists/:ProductId', WishlistController.create)
 router.get('/wishlists', WishlistController.fetchAll)
 router.delete('/wishlists/:id', WishlistController.deleteWishlist)
+
+router.post('/histories', HistoryController.create)
+router.get('/histories', HistoryController.fetchHistory)
 
 router.get('/products', ProductController.fetchAll)
 router.post('/products', authtenticAdmin, ProductController.create)
