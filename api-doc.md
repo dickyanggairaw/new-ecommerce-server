@@ -350,4 +350,119 @@
   {"message": "<internal server error>"}
 ```
 
-## 
+## PUT Checkout /checkout
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+
+### Req.Params:
+```json
+  {
+    "id": "<req.params.id>"
+  }
+```
+
+### Req.Body:
+```json
+  {
+    "id": "<req.body.id>",
+    "stock": "<req.body.stock>",
+    "stockProduct": "<req.body.stockProduct>"
+  }
+```
+### Response 200
+```json
+  {
+    "id": "<id>",
+    "name": "<name>",
+    "image_url": "<image_url>",
+    "price": "<price>",
+    "stock": "<stock>"
+  }
+```
+
+## POST Wishlist Create /wistlists/:ProductId
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+
+### Req.Params:
+```json
+  {
+    "ProductId": "<req.params.ProductId>"
+  }
+```
+### Response 201
+```json
+  {
+    "id": "<id>",
+    "UserId": "<UserId>",
+    "ProductId": "<ProductId>"
+  }
+```
+
+## GET Wistlist /wishlists
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+
+### Req.Body:
+```json
+  {
+    "stock": "<req.body.stock>"
+  }
+```
+
+### Response (200)
+```json
+[
+  {
+    "UserId": "<UserId>",
+    "ProductId": "<ProdductId>",
+    "stock": "<stock>",
+    "Product": {
+      "id": "<id>",
+      "name": "<name>",
+      "image_url": "<image_url>",
+      "price": "<price>",
+      "stock": "<stock>"
+    }
+  }
+]
+```
+
+## DELETE Delete Wishlist /wishlists/:id
+
+### Req.headers:
+```json
+  {
+    "access_token": "<acess_token>"
+  }
+```
+### Req.Params:
+```json
+  {
+    "id": "<req.params.id>"
+  }
+```
+
+### Response (200 - OK)
+```json
+  {"message": "Successfully delete Wishlist"}
+```
+
+### Response (400 - Bad Request)
+```json
+  {
+    "errors": "<errors>"
+  }
+```

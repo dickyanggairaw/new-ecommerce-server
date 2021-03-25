@@ -11,7 +11,7 @@ class WishlistController {
         attributes: ['id', 'UserId', 'ProductId']
       })
   
-      res.status(200).json({
+      res.status(201).json({
         id: wishlist.id,
         UserId: wishlist.UserId,
         ProductId: wishlist.ProductId
